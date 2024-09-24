@@ -20,7 +20,7 @@
     alt="Website Badge" />
 </p>
 
-This is a Linux designed gif maker app that uses the [gifski](https://gif.ski/) open source encoder library. I'm making this becuase there is an app I use frequently on MacOS that goes by the same name [Gifski](https://github.com/sindresorhus/Gifski) that I would love to have remade to run on Linux with a GUI. I'm using this as an opportunity to learn 
+This is a Linux designed gif maker app that uses the [gifski](https://gif.ski/) open source encoder library. I'm making this becuase there is an app I use frequently on MacOS that goes by the same name [Gifski](https://github.com/sindresorhus/Gifski) made by [sindresorhus](https://github.com/sindresorhus) that I would love to have remade to run on Linux with a GUI. I'm using this as an opportunity to learn 
 
 ---
 
@@ -44,6 +44,7 @@ This is a Linux designed gif maker app that uses the [gifski](https://gif.ski/) 
 
 # Tools Used / Development Environment
 - Python
+- Rust
 - PyGObject/GTK
 - VS Code
 - Terminal
@@ -56,7 +57,7 @@ This is a Linux designed gif maker app that uses the [gifski](https://gif.ski/) 
 
 
 # How to Set Up
-This project was implemented on my Linux desktop using information from the [PyGOject site](https://pygobject.gnome.org/getting_started.html#ubuntu-getting-started) and this [GTK YouTube Video.](https://youtu.be/Yu2EBmeCpJw?si=1T4h0TMkTJBPFGvC)
+This project was implemented on my Linux desktop using information from the [PyGOject site](https://pygobject.gnome.org/getting_started.html#ubuntu-getting-started)
 - Clone this repository 
 - `sudo apt install libgirepository1.0-dev gcc libcairo2-dev pkg-config python3-dev gir1.2-gtk-4.0`
 - In the codebase that was cloned create a virtual environment: `python3 -m venv .venv`
@@ -70,7 +71,7 @@ This project was implemented on my Linux desktop using information from the [PyG
 
 
 # Project Overview
-This Linux-designed clock app combines features commonly found in MacOS and Windows clock apps, such as world clock, stopwatch, timer, and alarm. With added features like a custom timer alert sounds and break scheduling, into a single solution. Unlike other clock apps available on Flathub, this app integrates all these functionalities, providing users with a comprehensive and efficient time management and clock utility. Throughout the project, I learned how to work with the PyGObject/GTK library for UI development, and successfully published a compiled app on Flathub. The development process was supported by tools like Python, VS Code, and Linux Mint.
+This Linux-designed 
 
 
 
