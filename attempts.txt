@@ -53,6 +53,51 @@ This example shows how to call a Rust function that adds two numbers from Python
     Cons: You’ll need to manage Rust’s memory model alongside Python’s garbage collection, and compiling requires configuring maturin or setuptools-rust.
 
 
+PyO3 Python Bindings
+
+    Rust Code: Use PyO3 to define a Rust function that Python can call directly.
+
+use pyo3::prelude::*;
+use pyo3::wrap_pyfunction;
+
+#[pyfunction]
+fn add_numbers(a: i32, b: i32) -> i32 {
+    a + b
+}
+
+#[pymodule]
+fn your_rust_module(py: Python, m: &PyModule) -> PyResult<()> {
+    m.add_function(wrap_pyfunction!(add_numbers, m)?)?;
+    Ok(())
+}
+
+Configure PyO3 and Build: Add pyo3 to your Cargo.toml and configure it.
+
+[dependencies]
+pyo3 = { version = "0.17", features = ["extension-module"] }
+
+Compile and Install: Use maturin or setuptools-rust to compile and install as a Python package.
+
+maturin develop  # This installs the Rust module as a Python package
+
+Python Code: You can now import and use the Rust function directly in Python.
+
+    import your_rust_module
+
+    result = your_rust_module.add_numbers(5, 7)
+    print("Result:", result)
+
+This approach integrates Rust functions directly as Python modules, allowing seamless access to Gifski functions without intermediate subprocess calls.
+
+
+
+
+
+
+
+
+
+
 
 
 3. Subprocess Calls (Your Original Idea)
@@ -60,3 +105,46 @@ This example shows how to call a Rust function that adds two numbers from Python
     Your original idea of invoking CLI commands via Python’s subprocess module can still be useful, particularly if you only need a few Gifski functions.
     Pros: It’s simple to implement and doesn’t require additional bindings or complex integration.
     Cons: Limited control and potentially less efficient due to the additional overhead of subprocesses, especially if the CLI calls are frequent.
+
+Subprocess Calls to the CLI (Your Original Idea)
+
+    Python Code: Use subprocess to run Gifski’s command-line interface, triggered by GUI actions in your PyQt application.
+
+    import subprocess
+    import sys
+    from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog
+
+    class GifskiApp(QMainWindow):
+        def __init__(self):
+            super().__init__()
+
+            # Set up the main window
+            self.setWindowTitle("Gifski GUI")
+            self.setGeometry(100, 100, 600, 400)
+
+            # Button to open a file dialog and select a video
+            self.button = QPushButton("Convert to GIF", self)
+            self.button.clicked.connect(self.convert_to_gif)
+            self.button.resize(150, 40)
+            self.button.move(225, 180)
+
+        def convert_to_gif(self):
+            # Open a file dialog to select a video file
+            video_file, _ = QFileDialog.getOpenFileName(self, "Select Video", "", "Video Files (*.mp4 *.mov *.avi)")
+            if video_file:
+                # Run Gifski CLI command with subprocess
+                output_gif = video_file.replace('.mp4', '.gif')
+                result = subprocess.run(['gifski', '-o', output_gif, video_file])
+
+                if result.returncode == 0:
+                    print(f"GIF created successfully at {output_gif}")
+                else:
+                    print("Error during GIF conversion")
+
+    # Run the PyQt application
+    app = QApplication(sys.argv)
+    window = GifskiApp()
+    window.show()
+    sys.exit(app.exec_())
+
+In this example, the GUI triggers Gifski’s CLI to convert a video file to a GIF without exposing terminal commands to the user. This approach allows for easy debugging and control over the command line.
