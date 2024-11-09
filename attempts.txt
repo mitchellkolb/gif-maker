@@ -7,6 +7,42 @@
     Cons: Writing Rust code compatible with ctypes can be challenging, as you have to be cautious with memory management and data types.
 
 
+Foreign Function Interface (FFI) with ctypes or cffi
+
+    Rust Library Code: Create a Rust library with functions that can be called from Python.
+
+// src/lib.rs
+#[no_mangle] // Ensures the Rust function has a predictable name in the compiled library
+pub extern "C" fn add_numbers(a: i32, b: i32) -> i32 {
+    a + b
+}
+
+Compile as a Shared Library: Run the following command to compile the library as a .so file on Linux.
+
+cargo build --release
+
+Python Code: Use ctypes to load and call functions from the compiled library.
+
+    import ctypes
+
+    # Load the shared library
+    lib = ctypes.CDLL('./target/release/libyour_library_name.so')
+
+    # Define the function prototype
+    lib.add_numbers.argtypes = (ctypes.c_int, ctypes.c_int)
+    lib.add_numbers.restype = ctypes.c_int
+
+    # Call the function
+    result = lib.add_numbers(5, 7)
+    print("Result:", result)
+
+This example shows how to call a Rust function that adds two numbers from Python. You can extend this to wrap any Gifski functions you need.
+
+
+
+
+
+
 
 
 2. Use PyO3 to Build Python Bindings in Rust
