@@ -1,0 +1,26 @@
+
+
+1. Use Python FFI (Foreign Function Interface) with Rust
+
+    Rust FFI and ctypes or cffi: You can compile the Rust Gifski library as a shared library (e.g., .so file on Linux) and use Python’s ctypes or cffi to call Rust functions directly from Python. This allows Python to interact with Rust functions as if they were regular Python functions.
+    Pros: This approach offers high performance and doesn’t involve using the command line, keeping things smooth.
+    Cons: Writing Rust code compatible with ctypes can be challenging, as you have to be cautious with memory management and data types.
+
+
+
+
+2. Use PyO3 to Build Python Bindings in Rust
+
+    PyO3 is a Rust crate specifically designed for creating Python bindings. It allows you to write Rust code that Python can import as a module.
+    How it works: You write a Rust function (e.g., generate_gif) and expose it as a Python module using PyO3. Your PyQt Python code can then import this Rust-compiled module and directly call functions from it.
+    Pros: This is a more modern, Rust-native approach that offers direct integration with Python, simplifying cross-language interactions.
+    Cons: You’ll need to manage Rust’s memory model alongside Python’s garbage collection, and compiling requires configuring maturin or setuptools-rust.
+
+
+
+
+3. Subprocess Calls (Your Original Idea)
+
+    Your original idea of invoking CLI commands via Python’s subprocess module can still be useful, particularly if you only need a few Gifski functions.
+    Pros: It’s simple to implement and doesn’t require additional bindings or complex integration.
+    Cons: Limited control and potentially less efficient due to the additional overhead of subprocesses, especially if the CLI calls are frequent.
