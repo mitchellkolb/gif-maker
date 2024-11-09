@@ -71,7 +71,7 @@ This project was implemented on my Linux desktop using information from the [PyG
 
 
 # Project Overview
-This Linux-designed 
+Simply put this project is intended to be a Linux made GUI version of the Gifski MacOS app.
 
 
 
